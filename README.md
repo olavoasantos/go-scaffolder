@@ -20,7 +20,7 @@ go build
 
 ## Internal templates
 
-Templates can be embedded into the CLI. These are made available to the user without any extra configuration. To add a new internal template, add a file on the `./defaultTemplates/templates` folder and create a reference to it on the `./defaultTemplates/defaultTemplates.go` file. For example:
+Templates can be embedded into the CLI. These are made available to the user without any extra configuration. To add a new internal template, add a file on the `./templates/default-templates` folder and create a reference to it on the `./templates/defaultTemplates.go` file. For example:
 
 ```go
 //go:embed templates/name-of-the-template.mustache

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"olavoasantos/scaffolder/configuration"
-	"olavoasantos/scaffolder/fileManager"
+	"olavoasantos/scaffolder/file-manager"
 	"olavoasantos/scaffolder/templates"
 	"olavoasantos/scaffolder/utilities"
 	"os"

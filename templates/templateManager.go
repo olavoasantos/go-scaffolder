@@ -2,7 +2,7 @@ package templates
 
 import (
 	"errors"
-	"olavoasantos/scaffolder/fileManager"
+	"olavoasantos/scaffolder/file-manager"
 	"olavoasantos/scaffolder/utilities"
 	"os"
 )
