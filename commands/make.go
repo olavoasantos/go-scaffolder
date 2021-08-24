@@ -34,14 +34,37 @@ var MakeCommand = &cli.Command{
 			Value:   configuration.DefaultConfigPath,
 			Usage:   "Load configuration from `FILE` relative path",
 		},
+		&cli.BoolFlag{
+			Name:    "list",
+			Aliases: []string{"l"},
+			Usage:   "List all available templates",
+		},
 	},
 	Action: func(c *cli.Context) error {
 		var err error
 
+		// Parse config
+		configFlag := c.String("config")
+		config := configuration.Load(configFlag)
+
+		// Initialize template manager
+		templates := templates.NewManager(config.Templates)
+
+		if c.Bool("list") {
+			fmt.Println("Available templates:")
+
+			for key, _ := range templates.All() {
+				fmt.Println(" - ", key)
+			}
+
+			fmt.Println("")
+
+			return nil
+		}
+
 		// Get CLI variables
 		templatePath := c.Args().Get(0)
 		output := c.Args().Get(1)
-		configFlag := c.String("config")
 
 		// Get fallback values for "name"
 		name := c.String("name")
@@ -51,12 +74,6 @@ var MakeCommand = &cli.Command{
 				name = filepath.Base(filepath.Dir(output))
 			}
 		}
-
-		// Parse config
-		config := configuration.Load(configFlag)
-
-		// Initialize template manager
-		templates := templates.NewManager(config.Templates)
 
 		// Get template content
 		template, err := templates.Get(templatePath)

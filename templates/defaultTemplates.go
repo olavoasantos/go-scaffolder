@@ -8,5 +8,5 @@ import (
 var reactComponentTsx string
 
 var List = map[string]string{
-	"react-component.tsx": reactComponentTsx,
+	"react": reactComponentTsx,
 }

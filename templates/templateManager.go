@@ -21,6 +21,10 @@ func NewManager(template ...map[string]string) *TemplateManager {
 	return &templates
 }
 
+func (t *TemplateManager) All() map[string]string {
+	return t.list
+}
+
 func (t *TemplateManager) Set(templates map[string]string) *TemplateManager {
 	for key, value := range templates {
 		t.list[key] = value
