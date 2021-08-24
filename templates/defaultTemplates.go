@@ -1,10 +1,10 @@
-package defaultTemplates
+package templates
 
 import (
 	_ "embed"
 )
 
-//go:embed templates/react-component.tsx.mustache
+//go:embed default-templates/react-component.tsx.mustache
 var reactComponentTsx string
 
 var List = map[string]string{

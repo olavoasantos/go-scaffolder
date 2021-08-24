@@ -1,11 +1,11 @@
 package commands
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"olavoasantos/scaffolder/configuration"
 	"olavoasantos/scaffolder/fileManager"
-	"olavoasantos/scaffolder/templateManager"
+	"olavoasantos/scaffolder/templates"
 	"olavoasantos/scaffolder/utilities"
 	"os"
 	"path/filepath"
@@ -58,21 +58,10 @@ var MakeCommand = &cli.Command{
 		}
 
 		// Parse config
-		config := ScaffolderConfig{}
-		configPath, err := fileManager.PathTo(configFlag)
-		utilities.Check(err)
-		configJson, err := fileManager.GetContentsOf(configPath)
-		if err == nil {
-			err = json.Unmarshal([]byte(configJson), &config)
-			utilities.Check(err)
-		} else {
-			if configFlag != "config.json" {
-				fmt.Println("Config file  \"" + configFlag + "\" was not found")
-			}
-		}
+		config := configuration.Load(configFlag)
 
 		// Initialize template manager
-		templates := templateManager.New(config.Templates)
+		templates := templates.NewManager(config.Templates)
 
 		// Get template content
 		template, err := templates.Get(templatePath)

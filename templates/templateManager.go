@@ -1,8 +1,7 @@
-package templateManager
+package templates
 
 import (
 	"errors"
-	"olavoasantos/scaffolder/defaultTemplates"
 	"olavoasantos/scaffolder/fileManager"
 	"olavoasantos/scaffolder/utilities"
 	"os"
@@ -12,8 +11,8 @@ type TemplateManager struct {
 	list map[string]string
 }
 
-func New(template ...map[string]string) *TemplateManager {
-	templates := TemplateManager{list: defaultTemplates.List}
+func NewManager(template ...map[string]string) *TemplateManager {
+	templates := TemplateManager{list: List}
 
 	if len(template) >= 1 {
 		templates.Set(template[0])
