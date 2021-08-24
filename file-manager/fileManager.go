@@ -29,3 +29,22 @@ func GetContentsOf(path string) (string, error) {
 func FileName(fileName string) string {
 	return strings.TrimSuffix(fileName, filepath.Ext(fileName))
 }
+
+func Write(relativePath string, content string) error {
+	outputPath, err := PathTo(relativePath)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(filepath.Dir(outputPath), os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(outputPath, []byte(content), os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -2,12 +2,10 @@ package commands
 
 import (
 	"fmt"
-	"io/ioutil"
 	"olavoasantos/scaffolder/configuration"
-	"olavoasantos/scaffolder/file-manager"
+	fileManager "olavoasantos/scaffolder/file-manager"
 	"olavoasantos/scaffolder/templates"
 	"olavoasantos/scaffolder/utilities"
-	"os"
 	"path/filepath"
 
 	"github.com/cbroglie/mustache"
@@ -24,9 +22,10 @@ type ScaffolderConfig struct {
 }
 
 var MakeCommand = &cli.Command{
-	Name:    "make",
-	Aliases: []string{"m"},
-	Usage:   "make a new file based on a template",
+	Name:      "make",
+	Aliases:   []string{"m"},
+	Usage:     "Make a new file based on a template",
+	ArgsUsage: "{template name | relative path to template} {relative output path}",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:    "name",
@@ -36,7 +35,7 @@ var MakeCommand = &cli.Command{
 		&cli.StringFlag{
 			Name:    "config",
 			Aliases: []string{"c"},
-			Value:   "config.json",
+			Value:   configuration.DefaultConfigPath,
 			Usage:   "Load configuration from `FILE` relative path",
 		},
 	},
@@ -68,18 +67,17 @@ var MakeCommand = &cli.Command{
 		utilities.Check(err)
 
 		// Render file contents
-		result, err := mustache.Render(template, Variables{NAME: utilities.VariationsOf(name), PATH: output})
+		result, err := mustache.Render(template, Variables{
+			NAME: utilities.VariationsOf(name),
+			PATH: output,
+		})
 		utilities.Check(err)
 
 		// Write file
-		outputPath, err := fileManager.PathTo(output)
-		utilities.Check(err)
-		err = os.MkdirAll(filepath.Dir(outputPath), os.ModePerm)
-		utilities.Check(err)
-		err = ioutil.WriteFile(outputPath, []byte(result), os.ModePerm)
+		err = fileManager.Write(output, result)
 		utilities.Check(err)
 
-		fmt.Println("Created file", outputPath)
+		fmt.Println("Created file", output)
 
 		return nil
 	},
