@@ -17,10 +17,6 @@ type Variables struct {
 	NAME utilities.Variations
 }
 
-type ScaffolderConfig struct {
-	Templates map[string]string
-}
-
 var MakeCommand = &cli.Command{
 	Name:      "make",
 	Aliases:   []string{"m"},
