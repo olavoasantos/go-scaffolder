@@ -69,13 +69,13 @@ It takes the following shape:
 
     // The plural for of the name and its variations
     PLURAL_VALUE       string // Plural Raw value: my components
-    PLURAL_UPPERCASE   string // Plural UPPERCASE value: MY COMPONENTs
+    PLURAL_UPPERCASE   string // Plural UPPERCASE value: MY COMPONENTS
     PLURAL_LOWERCASE   string // Plural lowercase value: my components
     PLURAL_KEBAB       string // Plural kebab-case value: my-components
     PLURAL_CAMEL       string // Plural camelCase value: myComponents
     PLURAL_SNAKE       string // Plural snake_case value: my_components
     PLURAL_PASCAL      string // Plural PascalCase value: MyComponents
-    PLURAL_MACRO       string // Plural MACRO_CASE value: MY_COMPONENTs
+    PLURAL_MACRO       string // Plural MACRO_CASE value: MY_COMPONENTS
   }
 }
 ```
